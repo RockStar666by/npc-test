@@ -6,7 +6,7 @@ import {
   Navbar,
   NavUl,
   NavLi,
-  NavLink,
+  StyledNavLink,
   LogoIcon
 } from './Header.styles';
 import Logo from '../../assets/arrows.svg';
@@ -21,10 +21,10 @@ export const Header: React.FC = () => {
         <Navbar>
           <NavUl>
             <NavLi>
-              <NavLink>Все валюты</NavLink>
+              <StyledNavLink to='/'>Все валюты</StyledNavLink>
             </NavLi>
             <NavLi>
-              <NavLink>Конвертер</NavLink>
+              <StyledNavLink to='converter'>Конвертер</StyledNavLink>
             </NavLi>
           </NavUl>
         </Navbar>

@@ -1,5 +1,6 @@
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { myTheme } from '../../DefaultTheme';
+import { myTheme } from '../../themes/DefaultTheme';
 
 export const StyledHeader = styled.header`
   margin: 0 auto;
@@ -12,6 +13,7 @@ export const StyledHeader = styled.header`
 export const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
+  box-sizing: border-box;
   margin: 0 auto;
   width: 100%;
   height 100px;
@@ -27,6 +29,7 @@ export const HeaderLogo = styled.div`
   font-weight: 600;
   letter-spacing: 2px;
   gap: 10px;
+  user-select: none;
 `;
 
 export const LogoIcon = styled.img`
@@ -37,7 +40,7 @@ export const LogoIcon = styled.img`
 export const Navbar = styled.nav``;
 
 export const NavUl = styled.ul`
-  padding: 60px;
+  padding-left: 60px;
   list-style-type: none;
   display: flex;
   gap: 15px;
@@ -52,15 +55,18 @@ export const NavLi = styled.li`
   box-sizing: border-box;
   border: 1px solid transparent;
   border-radius: 5px;
+`;
+export const StyledNavLink = styled(NavLink)`
+  margin: 0px 10px;
+  list-style-type: none;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  color: black;
+
   &:hover {
     // border: 1px solid lightgrey;
     text-shadow: 0px 4px 15px 0px rgb(34 60 80 / 10%);
     color: ${myTheme.colors.secondary};
   }
-`;
-export const NavLink = styled.a`
-  list-style-type: none;
-  display: flex;
-  flex-direction: column;
-  margin: 0px 10px;
 `;
