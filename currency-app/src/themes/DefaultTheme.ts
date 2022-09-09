@@ -1,4 +1,3 @@
-// my-theme.ts
 import { DefaultTheme } from 'styled-components';
 
 const myTheme: DefaultTheme = {
@@ -6,7 +5,7 @@ const myTheme: DefaultTheme = {
 
   colors: {
     main: 'cyan',
-    secondary: '#3ED373'
+    secondary: '#1AA67A'
   }
 };
 

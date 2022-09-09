@@ -40,6 +40,7 @@ export const LogoIcon = styled.img`
 export const Navbar = styled.nav``;
 
 export const NavUl = styled.ul`
+  margin: 0px;
   padding-left: 60px;
   list-style-type: none;
   display: flex;
@@ -49,6 +50,7 @@ export const NavLi = styled.li`
   text-align: center;
   margin: 15px auto;
   font-family: Roboto;
+  font-size: 16px;
   font-weight: 600;
   line-height: 40px;
   letter-spacing: 0.5px;
