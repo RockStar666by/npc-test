@@ -9,7 +9,13 @@ import { Link } from 'react-router-dom';
 import { CurrenciesDataType } from '../../types';
 import { StyledTable } from './Table.styles';
 
-export const Table = ({ currencies }: { currencies: CurrenciesDataType[] }) => {
+export const Table = ({
+  currencies,
+  loading
+}: {
+  currencies: CurrenciesDataType[];
+  loading: boolean;
+}) => {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef<InputRef>(null);
@@ -94,16 +100,14 @@ export const Table = ({ currencies }: { currencies: CurrenciesDataType[] }) => {
     },
     render: (text, record) =>
       searchedColumn === dataIndex ? (
-        <Link to={'/currencies/' + record.Cur_ID}>
-          <Highlighter
-            highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
-            searchWords={[searchText]}
-            autoEscape
-            textToHighlight={text ? text.toString() : ''}
-          />
-        </Link>
+        <Highlighter
+          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ''}
+        />
       ) : (
-        <Link to={'/currencies/' + record.Cur_ID}>{text}</Link>
+        text
       )
   });
 
@@ -144,51 +148,7 @@ export const Table = ({ currencies }: { currencies: CurrenciesDataType[] }) => {
       dataSource={currencies}
       pagination={{ position: ['bottomRight'], defaultPageSize: 20 }}
       defaultExpandAllRows
+      loading={loading}
     />
   );
 };
-
-// const columns: ColumnsType<any> = [];
-
-// const data: CurrenciesDataType[] = [
-//   {
-//     key: '1',
-//     Cur_Name: 'John Brown',
-//     Cur_Scale: 32,
-//     Cur_Abbreviation: 'USD',
-//     Cur_Exchange: ''
-//   },
-//   {
-//     key: '2',
-//     Cur_Name: 'Jim Green',
-//     Cur_Scale: 42,
-//     Cur_Abbreviation: 'AUS',
-//     Cur_Exchange: ''
-//   },
-//   {
-//     key: '3',
-//     Cur_Name: 'Joe Black',
-//     Cur_Scale: 32,
-//     Cur_Abbreviation: 'GBP',
-//     Cur_Exchange: ''
-//   }
-// ];
-
-// export const Table = ({ currencies }: { currencies: CurrenciesDataType[] }) => {
-//   const [loading, setLoading] = useState(false);
-
-//   const handleLoadingChange = (enable: boolean) => {
-//     setLoading(enable);
-//   };
-
-//   return (
-//     <StyledTable
-//       loading={loading}
-//       size='small'
-//       columns={columns}
-//       dataSource={currencies}
-//       pagination={{ position: ['bottomRight'], defaultPageSize: 20 }}
-//       defaultExpandAllRows
-//     />
-//   );
-// };
