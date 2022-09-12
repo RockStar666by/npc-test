@@ -139,10 +139,10 @@ export const Table = ({
     }
   ];
 
-  console.log(currencies);
-
   return (
     <StyledTable
+      // @ts-ignore
+      rowKey={(row: CurrenciesDataType) => row.Cur_ID}
       size='small'
       columns={columns}
       dataSource={currencies}

@@ -3,13 +3,37 @@ import { Routes, Route } from 'react-router-dom';
 import { MainPage } from '../../pages/Main';
 import { CurrencyPage } from '../../pages/Currency';
 import { ConverterPage } from '../../pages/Converter';
+import { ScreenSwitcher } from '../ScreenSwitcher';
+import { useStateParams } from '../../hooks';
 
-export const AppRouting = () => {
+export const PageContainer = () => {
+  const [screen, setScreen] = useStateParams(
+    ' ',
+    'screen',
+    (s) => s.toString(),
+    (s) => s
+  );
+
+  const renderSwitch = (param: string) => {
+    switch (param) {
+      case 'a':
+        return <MainPage />;
+        break;
+      case 'b':
+        return <CurrencyPage />;
+        break;
+      case 'c':
+        return <ConverterPage />;
+        break;
+      default:
+        return <MainPage />;
+    }
+  };
+
   return (
-    <Routes>
-      <Route path='/' element={<MainPage />} />
-      <Route path='/dynamics' element={<CurrencyPage />} />
-      <Route path='/converter' element={<ConverterPage />} />
-    </Routes>
+    <>
+      <ScreenSwitcher />
+      {renderSwitch(screen)}
+    </>
   );
 };

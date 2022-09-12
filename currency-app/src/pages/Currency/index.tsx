@@ -17,6 +17,7 @@ import { Chart } from '../../components/Chart';
 import { RangePicker } from '../../components/RangePicker';
 import { SelectDropdown } from '../../components/Select';
 import moment from 'moment';
+import { Card } from '../../components/Card';
 
 export const CurrencyPage: React.FC = () => {
   const [isSending, setIsSending] = useState(true);
@@ -36,7 +37,7 @@ export const CurrencyPage: React.FC = () => {
   );
 
   const [currency, setCurrency] = useStateParams(
-    '431',
+    ' ',
     'currency',
     (s) => s.toString(),
     (s) => s
@@ -45,12 +46,16 @@ export const CurrencyPage: React.FC = () => {
   useEffect(() => {
     setIsSending(true);
     requestRates()
-      .then((response) => setCurrenciesData(response.data))
-      .catch((error) => {
-        console.log(error);
-      });
-    requestDynamics(currency, dateRange)
+      .then((response) => {
+        const responseData = response.data;
+        setCurrenciesData(responseData);
+        return responseData;
+      })
+      .then((responseData) =>
+        requestDynamics(responseData[0].Cur_ID, dateRange)
+      )
       .then((response) => setDynamicsData(response.data))
+
       .catch((error) => {
         console.log(error);
       })
@@ -67,20 +72,19 @@ export const CurrencyPage: React.FC = () => {
       .finally(() => setIsSending(false));
   };
 
-  console.log('1', currenciesData, isSending, dynamicsData);
-
   const handleGetName = () => {
     const cur: CurrenciesDataType | undefined = currenciesData.find(
       (cur) => cur.Cur_ID == currency
     );
-
-    return `${cur?.Cur_Scale} ${cur?.Cur_Name}`;
+    if (cur !== undefined) {
+      return `${cur?.Cur_Scale} ${cur?.Cur_Name}`;
+    }
   };
 
   return (
     <StyledCurrency>
       <CurrencyWrapper>
-        <ScreenSwitcher />
+        <Card />
         {!isSending ? (
           <>
             <CurrencyHeader>

@@ -4,7 +4,7 @@ export interface CurrenciesDataType {
   Cur_Name: string;
   Cur_Scale: number;
   Cur_Abbreviation: string;
-  Cur_Exchange: string;
+  Cur_OfficialRate: string;
 }
 
 export interface DynamicsDataType {

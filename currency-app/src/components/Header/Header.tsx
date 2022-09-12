@@ -18,19 +18,6 @@ export const Header: React.FC = () => {
         <HeaderLogo>
           <LogoIcon src={Logo}></LogoIcon>CURRENCY
         </HeaderLogo>
-        <Navbar>
-          <NavUl>
-            <NavLi>
-              <StyledNavLink to='/'>Все валюты</StyledNavLink>
-            </NavLi>
-            <NavLi>
-              <StyledNavLink to='dynamics'>Динамика курсов</StyledNavLink>
-            </NavLi>
-            <NavLi>
-              <StyledNavLink to='converter'>Конвертер</StyledNavLink>
-            </NavLi>
-          </NavUl>
-        </Navbar>
       </HeaderWrapper>
     </StyledHeader>
   );

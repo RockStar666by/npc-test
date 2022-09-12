@@ -8,11 +8,13 @@ const { Option } = Select;
 export const SelectDropdown = ({
   data,
   loading,
-  name
+  name,
+  onChange
 }: {
   data: CurrenciesDataType[];
   loading: boolean;
   name?: string;
+  onChange?: () => void;
 }) => {
   const [dropdownList, setDropdownList] = useStateParams(
     data[0]?.Cur_ID,
@@ -21,10 +23,13 @@ export const SelectDropdown = ({
     (s) => s
   );
 
-  useEffect(() => {}, [dropdownList]);
+  useEffect(() => {
+    setDropdownList(dropdownList);
+  }, []);
 
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
+    if (onChange) onChange();
     setDropdownList(value);
   };
 
@@ -32,17 +37,19 @@ export const SelectDropdown = ({
     <Select
       defaultValue={
         dropdownList
-          ? data.find((elem) => elem.Cur_ID == dropdownList)?.Cur_Name
-          : data[0]?.Cur_Name
+          ? data.find((elem) => elem.Cur_ID == dropdownList)?.Cur_Scale +
+            ' ' +
+            data.find((elem) => elem.Cur_ID == dropdownList)?.Cur_Name
+          : data[0]?.Cur_Scale + ' ' + data[0]?.Cur_Name
       }
-      style={{ width: 200 }}
+      style={{ minWidth: 200 }}
       onChange={handleChange}
       loading={loading}
     >
-      {data.map(({ Cur_Name, Cur_ID }) => {
+      {data.map(({ Cur_Name, Cur_ID, Cur_Scale }) => {
         return (
           <Option key={Cur_ID} value={Cur_ID}>
-            {Cur_Name}
+            {Cur_Scale + ' ' + Cur_Name}
           </Option>
         );
       })}

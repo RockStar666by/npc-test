@@ -15,6 +15,7 @@ import { ScreenSwitcher } from '../../components/ScreenSwitcher';
 import { useStateParams } from '../../hooks';
 import { ShareLinkModal } from '../../components/Modal';
 import moment from 'moment';
+import { Card } from '../../components/Card';
 
 export const MainPage: React.FC = () => {
   const [isSending, setIsSending] = useState(false);
@@ -52,7 +53,7 @@ export const MainPage: React.FC = () => {
   return (
     <StyledMain>
       <MainWrapper>
-        <ScreenSwitcher />
+        <Card />
         <MainHeader>Курсы валют Нацбанка РБ на {date}</MainHeader>
         <SearchInput>
           <ShareLinkModal />

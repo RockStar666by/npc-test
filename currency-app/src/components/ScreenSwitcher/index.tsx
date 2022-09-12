@@ -1,24 +1,32 @@
-import { Radio, RadioChangeEvent } from 'antd';
+import { Radio, RadioChangeEvent, Segmented } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useStateParams } from '../../hooks';
 
 export const ScreenSwitcher: React.FC = () => {
-  const [radio, setRadio] = useStateParams(
+  const [value, setValue] = useStateParams(
     'a',
     'screen',
     (s) => s.toString(),
-    (s) => s
+    (s) => s.toString()
   );
 
-  const onChange = (radioTarget: RadioChangeEvent) => {
-    setRadio(radioTarget.target.value);
-  };
+  // const onChange = (radioTarget: RadioChangeEvent) => {
+  //   setRadio(radioTarget.target.value);
+  // };
 
   return (
-    <Radio.Group defaultValue={radio} buttonStyle='solid' onChange={onChange}>
-      <Radio.Button value='a'>Курсы валют</Radio.Button>
-      <Radio.Button value='b'>Динамика курсов</Radio.Button>
-      <Radio.Button value='c'>Валютный калькулятор</Radio.Button>
-    </Radio.Group>
+    <>
+      <Segmented
+        block
+        options={[
+          { label: 'Курсы валют', value: 'a' },
+          { label: 'Динамика курсов', value: 'b' },
+          { label: 'Калькулятор', value: 'c' }
+        ]}
+        value={value}
+        // @ts-ignore
+        onChange={setValue}
+      />
+    </>
   );
 };
