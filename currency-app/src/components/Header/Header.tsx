@@ -24,6 +24,9 @@ export const Header: React.FC = () => {
               <StyledNavLink to='/'>Все валюты</StyledNavLink>
             </NavLi>
             <NavLi>
+              <StyledNavLink to='dynamics'>Динамика курсов</StyledNavLink>
+            </NavLi>
+            <NavLi>
               <StyledNavLink to='converter'>Конвертер</StyledNavLink>
             </NavLi>
           </NavUl>

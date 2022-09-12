@@ -1,5 +1,5 @@
-import { createBrowserHistory } from 'history';
 import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export function useStateParams<T>(
   initialState: T,
@@ -7,8 +7,9 @@ export function useStateParams<T>(
   serialize: (state: T) => string,
   deserialize: (state: string) => T
 ): [T, (state: T) => void] {
-  const history = createBrowserHistory();
-  const search = new URLSearchParams(history.location.search);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const search = new URLSearchParams(location.search);
 
   const existingValue = search.get(paramsName);
   const [state, setState] = useState<T>(
@@ -24,10 +25,10 @@ export function useStateParams<T>(
 
   const onChange = (s: T) => {
     setState(s);
-    const searchParams = new URLSearchParams(history.location.search);
+    const searchParams = new URLSearchParams(location.search);
     searchParams.set(paramsName, serialize(s));
-    const pathname = history.location.pathname;
-    history.push({ pathname, search: searchParams.toString() });
+    const pathname = location.pathname;
+    navigate({ pathname, search: searchParams.toString() });
   };
 
   return [state, onChange];

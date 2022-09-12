@@ -8,7 +8,7 @@ export const AppRouting = () => {
   return (
     <Routes>
       <Route path='/' element={<MainPage />} />
-      <Route path='/currencies/:currencyId' element={<CurrencyPage />} />
+      <Route path='/dynamics' element={<CurrencyPage />} />
       <Route path='/converter' element={<ConverterPage />} />
     </Routes>
   );

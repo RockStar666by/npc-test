@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'antd';
 import {
@@ -14,7 +13,8 @@ import { CurrenciesDataType } from '../../types';
 import { requestRates } from '../../services';
 import { ScreenSwitcher } from '../../components/ScreenSwitcher';
 import { useStateParams } from '../../hooks';
-import { ShareAltOutlined } from '@ant-design/icons';
+import { ShareLinkModal } from '../../components/Modal';
+import moment from 'moment';
 
 export const MainPage: React.FC = () => {
   const [isSending, setIsSending] = useState(false);
@@ -23,7 +23,7 @@ export const MainPage: React.FC = () => {
   );
 
   const [date, setDate] = useStateParams(
-    '',
+    moment().format().slice(0, 10).toString(),
     'date',
     (s) => s.toString(),
     (s) => s
@@ -37,7 +37,7 @@ export const MainPage: React.FC = () => {
         console.log(error);
       })
       .finally(() => setIsSending(false));
-  }, [date]);
+  }, []);
 
   const handleOnClick = () => {
     setIsSending(true);
@@ -55,10 +55,7 @@ export const MainPage: React.FC = () => {
         <ScreenSwitcher />
         <MainHeader>Курсы валют Нацбанка РБ на {date}</MainHeader>
         <SearchInput>
-          <Button type='default'>
-            <ShareAltOutlined />
-            Поделиться
-          </Button>
+          <ShareLinkModal />
           <DatePicker></DatePicker>
           <Button type='primary' onClick={handleOnClick}>
             Найти

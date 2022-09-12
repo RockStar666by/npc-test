@@ -6,7 +6,7 @@ import { RangePickerProps } from 'antd/es/date-picker';
 
 export const DatePicker: React.FC = () => {
   const [date, setDate] = useStateParams(
-    '',
+    moment().format('YYYY-MM-DD').toString(),
     'date',
     (s) => s.toString(),
     (s) => s
@@ -26,6 +26,8 @@ export const DatePicker: React.FC = () => {
       onChange={onChange}
       defaultValue={moment()}
       disabledDate={disabledDate}
+      format='YYYY-MM-DD'
+      value={moment(date)}
     />
   );
 };
