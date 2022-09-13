@@ -1,3 +1,4 @@
+import { Empty } from 'antd';
 import React from 'react';
 import { DynamicsDataType } from '../../types';
 import { Area } from './Chart.styles';
@@ -51,6 +52,11 @@ export const Chart = ({
       };
     }
   };
-  // @ts-ignore
-  return <Area {...config} />;
+
+  return dynamicsData.length > 0 ? (
+    // @ts-ignore
+    <Area {...config} />
+  ) : (
+    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+  );
 };

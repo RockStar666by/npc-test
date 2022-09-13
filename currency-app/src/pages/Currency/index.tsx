@@ -45,10 +45,10 @@ export const CurrencyPage: React.FC = () => {
         setCurrenciesData(responseData);
         return responseData;
       })
-      .then((responseData) =>
-        requestDynamics(responseData[0].Cur_ID, dateRange)
-      )
-      .then((response) => setDynamicsData(response.data))
+      // .then((responseData) =>
+      //   requestDynamics(responseData[0].Cur_ID, dateRange)
+      // )
+      // .then((response) => setDynamicsData(response.data))
 
       .catch((error) => {
         console.log(error);
