@@ -1,5 +1,5 @@
-import { Radio, RadioChangeEvent, Segmented } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { Segmented } from 'antd';
+import React from 'react';
 import { useStateParams } from '../../hooks';
 
 export const ScreenSwitcher: React.FC = () => {
@@ -10,9 +10,9 @@ export const ScreenSwitcher: React.FC = () => {
     (s) => s.toString()
   );
 
-  // const onChange = (radioTarget: RadioChangeEvent) => {
-  //   setRadio(radioTarget.target.value);
-  // };
+  const onChange = (value: any) => {
+    setValue(value);
+  };
 
   return (
     <>
@@ -25,7 +25,7 @@ export const ScreenSwitcher: React.FC = () => {
         ]}
         value={value}
         // @ts-ignore
-        onChange={setValue}
+        onChange={onChange}
       />
     </>
   );

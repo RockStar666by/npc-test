@@ -1,6 +1,6 @@
+import useUrlState from '@ahooksjs/use-url-state';
 import { Select } from 'antd';
-import React, { useEffect } from 'react';
-import { useStateParams } from '../../hooks';
+import React from 'react';
 import { CurrenciesDataType } from '../../types';
 
 const { Option } = Select;
@@ -13,38 +13,31 @@ export const SelectDropdown = ({
 }: {
   data: CurrenciesDataType[];
   loading: boolean;
-  name?: string;
+  name: string;
   onChange?: () => void;
 }) => {
-  const [dropdownList, setDropdownList] = useStateParams(
-    data[0]?.Cur_ID,
-    name || 'dropdown',
-    (s) => s.toString(),
-    (s) => s
-  );
-
-  useEffect(() => {
-    setDropdownList(dropdownList);
-  }, []);
+  const [state, setState] = useUrlState({ [name]: undefined });
 
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
     if (onChange) onChange();
-    setDropdownList(value);
+    setState({ [name]: value });
   };
+
+  const handleValue = () =>
+    state[name] !== undefined
+      ? data.find((elem) => elem.Cur_ID == state[name])?.Cur_Scale +
+        ' ' +
+        data.find((elem) => elem.Cur_ID == state[name])?.Cur_Name
+      : 'Выберите валюту';
 
   return (
     <Select
-      defaultValue={
-        dropdownList
-          ? data.find((elem) => elem.Cur_ID == dropdownList)?.Cur_Scale +
-            ' ' +
-            data.find((elem) => elem.Cur_ID == dropdownList)?.Cur_Name
-          : data[0]?.Cur_Scale + ' ' + data[0]?.Cur_Name
-      }
+      defaultValue={handleValue()}
       style={{ minWidth: 200 }}
       onChange={handleChange}
       loading={loading}
+      value={handleValue()}
     >
       {data.map(({ Cur_Name, Cur_ID, Cur_Scale }) => {
         return (

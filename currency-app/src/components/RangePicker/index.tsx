@@ -1,7 +1,6 @@
-import { DatePicker } from 'antd';
+import React from 'react';
 import moment from 'moment';
 import { Moment } from 'moment';
-import React from 'react';
 import { useStateParams } from '../../hooks';
 import { StyledRangePicker } from './RangePicker.styles';
 import { RangePickerProps } from 'antd/es/date-picker';

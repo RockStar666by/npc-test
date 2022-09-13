@@ -28,4 +28,7 @@ export const SearchInput = styled.div`
   justify-content: right;
   margin-bottom: 20px;
   gap: 10px;
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
 `;

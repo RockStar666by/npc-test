@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   CurrencyHeader,
   CurrencyWrapper,
@@ -6,11 +6,8 @@ import {
   StyledCurrency
 } from './Currency.styles';
 import { Button } from 'antd';
-
-import { myTheme } from '../../themes/DefaultTheme';
 import { CurrenciesDataType, DynamicsDataType } from '../../types';
 import { requestDynamics, requestRates } from '../../services';
-import { ScreenSwitcher } from '../../components/ScreenSwitcher';
 import { useStateParams } from '../../hooks';
 import { ShareLinkModal } from '../../components/Modal';
 import { Chart } from '../../components/Chart';
@@ -18,6 +15,7 @@ import { RangePicker } from '../../components/RangePicker';
 import { SelectDropdown } from '../../components/Select';
 import moment from 'moment';
 import { Card } from '../../components/Card';
+import useUrlState from '@ahooksjs/use-url-state';
 
 export const CurrencyPage: React.FC = () => {
   const [isSending, setIsSending] = useState(true);
@@ -36,15 +34,11 @@ export const CurrencyPage: React.FC = () => {
     (s) => s.split(',')
   );
 
-  const [currency, setCurrency] = useStateParams(
-    ' ',
-    'currency',
-    (s) => s.toString(),
-    (s) => s
-  );
+  const [urlState, setUrlStat] = useUrlState();
 
   useEffect(() => {
     setIsSending(true);
+    console.log(urlState);
     requestRates()
       .then((response) => {
         const responseData = response.data;
@@ -60,11 +54,12 @@ export const CurrencyPage: React.FC = () => {
         console.log(error);
       })
       .finally(() => setIsSending(false));
+    console.log(urlState);
   }, []);
 
   const handleOnClick = () => {
     setIsSending(true);
-    requestDynamics(currency, dateRange)
+    requestDynamics(urlState.currency, dateRange)
       .then((response) => setDynamicsData(response.data))
       .catch((error) => {
         console.log(error);
@@ -74,7 +69,7 @@ export const CurrencyPage: React.FC = () => {
 
   const handleGetName = () => {
     const cur: CurrenciesDataType | undefined = currenciesData.find(
-      (cur) => cur.Cur_ID == currency
+      (cur) => cur.Cur_ID == urlState.currency
     );
     if (cur !== undefined) {
       return `${cur?.Cur_Scale} ${cur?.Cur_Name}`;

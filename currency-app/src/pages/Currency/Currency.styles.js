@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { myTheme } from '../../themes/DefaultTheme';
 
 export const StyledCurrency = styled.main`
   margin: 0 auto;
@@ -27,4 +26,7 @@ export const SearchInput = styled.div`
   justify-content: right;
   margin-bottom: 20px;
   gap: 10px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;

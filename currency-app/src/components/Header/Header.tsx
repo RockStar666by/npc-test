@@ -3,10 +3,6 @@ import {
   StyledHeader,
   HeaderWrapper,
   HeaderLogo,
-  Navbar,
-  NavUl,
-  NavLi,
-  StyledNavLink,
   LogoIcon
 } from './Header.styles';
 import Logo from '../../assets/arrows.svg';

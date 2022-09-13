@@ -5,7 +5,6 @@ import { Button, Input, Space } from 'antd';
 import type { ColumnsType, ColumnType } from 'antd/es/table';
 import type { FilterConfirmProps } from 'antd/es/table/interface';
 import Highlighter from 'react-highlight-words';
-import { Link } from 'react-router-dom';
 import { CurrenciesDataType } from '../../types';
 import { StyledTable } from './Table.styles';
 

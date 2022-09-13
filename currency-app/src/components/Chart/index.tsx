@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import { requestDynamics } from '../../services';
+import React from 'react';
 import { DynamicsDataType } from '../../types';
 import { Area } from './Chart.styles';
 

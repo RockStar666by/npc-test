@@ -5,5 +5,4 @@ import styled from 'styled-components';
 export const StyledDatePicker = styled(DatePicker)`
   display: block;
   height: 32px;
-  width: 280px;
 `;

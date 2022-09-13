@@ -13,18 +13,21 @@ export const CurrencyInputWrapper = styled.div`
   flex-direction: row;
   gap: 10px;
   padding: 20px;
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
 `;
 
 export const ConverterWrapper = styled.div`
-position: relative;
-display: flex;
-flex-direction: column;
-padding: 20px 16px 0;
-box-sizing: border-box;
-margin: 0 auto;
-width: 100%;
-height 400px;
-max-width: 1400px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 16px 100px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  max-width: 1400px;
 `;
 
 export const ModalWrapper = styled.div`

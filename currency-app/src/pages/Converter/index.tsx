@@ -2,12 +2,10 @@ import { Input } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Card } from '../../components/Card';
 import { ShareLinkModal } from '../../components/Modal';
-import { ScreenSwitcher } from '../../components/ScreenSwitcher';
 import { SelectDropdown } from '../../components/Select';
 import { useStateParams } from '../../hooks';
 import { requestRates } from '../../services';
 import { CurrenciesDataType } from '../../types';
-import { CurrencyWrapper } from '../Currency/Currency.styles';
 import {
   ConverterWrapper,
   CurrencyInputWrapper,
@@ -30,9 +28,9 @@ export const ConverterPage: React.FC = () => {
     (s) => s.split(',')
   );
 
-  const [currencyOne, setCurrencyOne] = useStateParams(
+  const [currency, setCurrency] = useStateParams(
     currenciesData[0]?.Cur_ID,
-    'currencyOne',
+    'currency',
     (s) => s.toString(),
     (s) => s
   );
@@ -45,7 +43,6 @@ export const ConverterPage: React.FC = () => {
   );
 
   useEffect(() => {
-    console.log('useffect 1');
     setIsSending(true);
     requestRates()
       .then((response) => {
@@ -59,7 +56,7 @@ export const ConverterPage: React.FC = () => {
   }, []);
 
   const handleRateChange = () => {
-    let rateX = currenciesData.find((elem) => elem.Cur_ID == currencyOne);
+    let rateX = currenciesData.find((elem) => elem.Cur_ID == currency);
     let rateY = currenciesData.find((elem) => elem.Cur_ID == currencyTwo);
     console.log(rateX, rateY);
     if (rateX && rateY) {
@@ -69,7 +66,8 @@ export const ConverterPage: React.FC = () => {
       console.log('RATE', rate);
     }
   };
-  useEffect(() => handleRateChange(), [currencyOne, currencyTwo]);
+
+  useEffect(() => handleRateChange(), [amount, currency, currencyTwo]);
 
   const handleChangeAmountOne = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -105,7 +103,7 @@ export const ConverterPage: React.FC = () => {
               <SelectDropdown
                 data={currenciesData}
                 loading={isSending}
-                name='currencyOne'
+                name='currency'
                 onChange={handleChangeCurrency}
               />
               <Input
@@ -114,6 +112,7 @@ export const ConverterPage: React.FC = () => {
                 onChange={handleChangeAmountOne}
                 value={amount[0]}
                 style={{ width: 200 }}
+                onFocus={handleRateChange}
               ></Input>
             </CurrencyInputWrapper>
             <Equation>=</Equation>
