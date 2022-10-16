@@ -5,7 +5,7 @@ import {
   SearchInput,
   StyledCurrency
 } from './Currency.styles';
-import { Button } from 'antd';
+import { Button, Spin } from 'antd';
 import { CurrenciesDataType, DynamicsDataType } from '../../types';
 import { requestDynamics, requestRates } from '../../services';
 import { useStateParams } from '../../hooks';
@@ -14,7 +14,6 @@ import { Chart } from '../../components/Chart';
 import { RangePicker } from '../../components/RangePicker';
 import { SelectDropdown } from '../../components/Select';
 import moment from 'moment';
-import { Card } from '../../components/Card';
 import useUrlState from '@ahooksjs/use-url-state';
 
 export const CurrencyPage: React.FC = () => {
@@ -45,10 +44,13 @@ export const CurrencyPage: React.FC = () => {
         setCurrenciesData(responseData);
         return responseData;
       })
-      // .then((responseData) =>
-      //   requestDynamics(responseData[0].Cur_ID, dateRange)
-      // )
-      // .then((response) => setDynamicsData(response.data))
+      .then((responseData) =>
+        requestDynamics(
+          urlState.currency !== undefined ? urlState.currency : '431',
+          dateRange
+        )
+      )
+      .then((response) => setDynamicsData(response.data))
 
       .catch((error) => {
         console.log(error);
@@ -57,29 +59,36 @@ export const CurrencyPage: React.FC = () => {
     console.log(urlState);
   }, []);
 
-  const handleOnClick = () => {
+  useEffect(() => {
     setIsSending(true);
-    requestDynamics(urlState.currency, dateRange)
+    requestDynamics(
+      urlState.currency !== undefined ? urlState.currency : '431',
+      dateRange
+    )
       .then((response) => setDynamicsData(response.data))
       .catch((error) => {
         console.log(error);
       })
       .finally(() => setIsSending(false));
-  };
+  }, [urlState, dateRange]);
 
   const handleGetName = () => {
-    const cur: CurrenciesDataType | undefined = currenciesData.find(
-      (cur) => cur.Cur_ID == urlState.currency
-    );
-    if (cur !== undefined) {
-      return `${cur?.Cur_Scale} ${cur?.Cur_Name}`;
+    if (!isSending) {
+      let currency: CurrenciesDataType | undefined;
+      if (urlState.currency) {
+        currency = currenciesData.find(
+          (cur) => cur.Cur_ID === Number(urlState.currency)
+        );
+      } else {
+        currency = currenciesData.find((cur) => cur.Cur_ID === 431);
+      }
+      return `${currency?.Cur_Scale} ${currency?.Cur_Name}`;
     }
   };
 
   return (
     <StyledCurrency>
       <CurrencyWrapper>
-        <Card />
         {!isSending ? (
           <>
             <CurrencyHeader>
@@ -91,16 +100,14 @@ export const CurrencyPage: React.FC = () => {
                 data={currenciesData}
                 loading={isSending}
                 name='currency'
+                defaultValue='431'
               ></SelectDropdown>
               <RangePicker></RangePicker>
-              <Button type='primary' onClick={handleOnClick}>
-                Найти
-              </Button>
             </SearchInput>
             <Chart dynamicsData={dynamicsData}></Chart>
           </>
         ) : (
-          ''
+          <Spin />
         )}
       </CurrencyWrapper>
     </StyledCurrency>

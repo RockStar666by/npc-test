@@ -1,6 +1,6 @@
 export interface CurrenciesDataType {
   key: string;
-  Cur_ID: string;
+  Cur_ID: number;
   Cur_Name: string;
   Cur_Scale: number;
   Cur_Abbreviation: string;

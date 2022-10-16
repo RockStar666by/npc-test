@@ -5,12 +5,14 @@ export const StyledConverter = styled.main`
   margin: 0 auto;
   width: 100%;
   height: 100%;
+  min-height: calc(100vh - 224px);
 `;
 
 export const CurrencyInputWrapper = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 10px;
   padding: 20px;
   @media (max-width: 480px) {
@@ -33,7 +35,6 @@ export const ConverterWrapper = styled.div`
 export const ModalWrapper = styled.div`
   display: flex;
   justify-content: right;
-  padding: 20px 0;
 `;
 
 export const Equation = styled.p`

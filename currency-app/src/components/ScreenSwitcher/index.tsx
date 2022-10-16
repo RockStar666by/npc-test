@@ -17,6 +17,7 @@ export const ScreenSwitcher: React.FC = () => {
   return (
     <>
       <Segmented
+        size='large'
         block
         options={[
           { label: 'Курсы валют', value: 'a' },
@@ -26,6 +27,12 @@ export const ScreenSwitcher: React.FC = () => {
         value={value}
         // @ts-ignore
         onChange={onChange}
+        style={{
+          margin: '0 auto',
+          maxWidth: 1400,
+          display: 'flex',
+          fontWeight: 'bold'
+        }}
       />
     </>
   );

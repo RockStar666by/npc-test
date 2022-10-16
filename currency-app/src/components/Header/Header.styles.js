@@ -16,7 +16,7 @@ export const HeaderWrapper = styled.div`
   box-sizing: border-box;
   margin: 0 auto;
   width: 100%;
-  height 100px;
+  height: 100px;
   max-width: 1400px;
   padding: 0 16px;
 `;

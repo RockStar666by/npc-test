@@ -23,7 +23,7 @@ export const ShareLinkModal: React.FC = () => {
 
   return (
     <>
-      <Button type='primary' onClick={showModal}>
+      <Button size='large' type='primary' onClick={showModal}>
         <ShareAltOutlined />
         Поделиться
       </Button>

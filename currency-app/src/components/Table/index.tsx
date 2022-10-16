@@ -7,6 +7,7 @@ import type { FilterConfirmProps } from 'antd/es/table/interface';
 import Highlighter from 'react-highlight-words';
 import { CurrenciesDataType } from '../../types';
 import { StyledTable } from './Table.styles';
+import { flags } from '../../assets/country-flags';
 
 export const Table = ({
   currencies,
@@ -99,14 +100,20 @@ export const Table = ({
     },
     render: (text, record) =>
       searchedColumn === dataIndex ? (
-        <Highlighter
-          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
-          searchWords={[searchText]}
-          autoEscape
-          textToHighlight={text ? text.toString() : ''}
-        />
+        <>
+          <img src={flags[record.Cur_Abbreviation as keyof typeof flags]} />{' '}
+          <Highlighter
+            highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+            searchWords={[searchText]}
+            autoEscape
+            textToHighlight={text ? text.toString() : ''}
+          />
+        </>
       ) : (
-        text
+        <>
+          <img src={flags[record.Cur_Abbreviation as keyof typeof flags]} />{' '}
+          {text}
+        </>
       )
   });
 
@@ -115,6 +122,14 @@ export const Table = ({
       title: 'Валюта',
       dataIndex: 'Cur_Name',
       key: 'Cur_Name',
+      render: (value, record: CurrenciesDataType, index) => {
+        return (
+          <>
+            <img src={flags[record.Cur_Abbreviation as keyof typeof flags]} />{' '}
+            {value}
+          </>
+        );
+      },
       ...getColumnSearchProps('Cur_Name', 'названию')
     },
     {
@@ -134,7 +149,15 @@ export const Table = ({
       title: 'Курс',
       dataIndex: 'Cur_OfficialRate',
       key: 'Cur_OfficialRate',
-      width: 100
+      width: 100,
+      render: (value, record: CurrenciesDataType, index) => {
+        return (
+          <>
+            {value}
+            {' BYN'}
+          </>
+        );
+      }
     }
   ];
 
